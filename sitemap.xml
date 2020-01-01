@@ -3,15 +3,51 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://xishian.github.io/post/3-third/</loc>
+    <lastmod>2020-01-01T21:06:35+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://xishian.github.io/post/</loc>
+    <lastmod>2020-01-01T21:06:35+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://xishian.github.io/</loc>
+    <lastmod>2020-01-01T21:06:35+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://xishian.github.io/post/2-second/</loc>
+    <lastmod>2020-01-01T21:06:24+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://xishian.github.io/post/1-first/</loc>
+    <lastmod>2020-01-01T21:06:10+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://xishian.github.io/about/</loc>
+    <lastmod>2020-01-01T21:02:04+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://xishian.github.io/articles/</loc>
+    <lastmod>2020-01-01T19:48:50+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://xishian.github.io/articles/test/</loc>
+    <lastmod>2020-01-01T19:48:50+08:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://xishian.github.io/categories/</loc>
   </url>
   
   <url>
     <loc>https://xishian.github.io/tags/</loc>
-  </url>
-  
-  <url>
-    <loc>https://xishian.github.io/</loc>
   </url>
   
 </urlset>

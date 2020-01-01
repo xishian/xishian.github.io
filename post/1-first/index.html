@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-cn" lang="zh-cn">
+<head>
+  <link href="https://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.62.0" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>1 First &middot; 朝花夕拾</title>
+  <meta name="description" content="" />
+
+  
+  <link type="text/css" rel="stylesheet" href="https://xishian.github.io/css/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="https://xishian.github.io/css/poole.css">
+  <link type="text/css" rel="stylesheet" href="https://xishian.github.io/css/syntax.css">
+  <link type="text/css" rel="stylesheet" href="https://xishian.github.io/css/hyde.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  
+</head>
+
+  <body class=" ">
+  <aside class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="https://xishian.github.io/"><h1>朝花夕拾</h1></a>
+      <p class="lead">
+      An elegant open source and mobile first theme for <a href="http://hugo.spf13.com">hugo</a> made by <a href="http://twitter.com/mdo">@mdo</a>. Originally made for Jekyll.
+      </p>
+    </div>
+
+    <nav>
+      <ul class="sidebar-nav">
+        <li><a href="https://xishian.github.io/">Home</a> </li>
+        
+      </ul>
+    </nav>
+
+    <p>&copy; 2020. All rights reserved. </p>
+  </div>
+</aside>
+
+    <main class="content container">
+    <div class="post">
+  <h1>1 First</h1>
+  <time datetime=2020-01-01T21:06:10&#43;0800 class="post-date">Wed, Jan 1, 2020</time>
+  <h1 id="ospf">OSPF</h1>
+<p>开放式最短路径优先协议是IETF定义的一种基于链路状态的内部网关路由协议</p>
+<p>特点：</p>
+<p>设计上保证路由无环路</p>
+<p>支持区域的划分</p>
+<p>支持触发更新</p>
+<p>提供认证</p>
+<p>解决网络扩容带来的问题</p>
+<p>网络类型：
+P2P
+支持广播和组播，PPP
+广播
+支持广播和组播，通过共享介质互连，以太网
+NBMA
+不支持广播和组播，通过虚电路（VC）互连
+需要手动配置邻居
+通过全互连的帧中继链路相连的路由器网络
+P2MP
+支持广播和组播
+可以通过Inverse ARP来发现邻居
+没有默认的实现，非完全连接的帧中继网络或者ATM</p>
+<p>LSA
+链路状态公告，包含了路由器已知的接口IP地址、掩码、开销和网络类型等信息。</p>
+<p>LSDB
+链路状态数据库，每台路由器维护一个LSDB，通过spf算法计算得到一棵最短路径树，并从这棵树得到目的网络的最优路由，最后加入路由表</p>
+<p>OSPF报文</p>
+<p>Hello报文
+发现，建立，维护邻居关系，在广播和NBMA网络中选举DR和BDR
+DD报文
+描述自己的LSDB，其中包含所有LSA的头部（头部可以唯一标识词LSA，且数据量比较小）
+LSR报文
+交换DD报文后，向对端请求自己没有的LSA
+LSU
+向对端发送其需要的LSA
+LSACK
+对接收到的LSU报文进行确认</p>
+<p>状态
+Down  没有收到任何消息
+Init	收到了Hello包，但里面没有自己
+Attempt	NBMA，没收到任何消息，但已经发了Hello包出去
+2-Way	双向通信已经建立
+ExStart	开始发DD报文，确定主从关系
+Exchange	DD报文里面包含LSDB的摘要了
+Loading	交换LSA（涉及到LSR和LSU）
+Full LSDB同步完成</p>
+<p>RouterId
+路由器的唯一标识，建议手动分配，没设就选最大的IP地址（逻辑-&gt;物理）
+手动配置-》Loopback最大-》物理接口最大
+重置ospf进程可更新router id</p>
+<p>邻居关系
+收到Hello包之后，检查其中的参数，验证成功就建立邻居关系
+检查的项目：
+网络掩码（仅限于 NBMA），发送间隔，失效时间，选项E-bit
+OSPF支持通过单播的方式建立邻居关系&mdash; peer 2.2.2.2</p>
+<p>邻接关系
+成功交换DD报文和LSA之后才算是邻接关系
+Hello
+发现，建立，保持邻居关系</p>
+<p>Hello报文中的各个字段
+网络掩码
+发送间隔
+选项（高级内容）
+优先级，用于选举DR和BDR
+失效时间，4倍发送间隔
+DR
+BDR
+邻居列表</p>
+<p>LSDB同步过程
+RTA -&gt; RTB
+1、选主路由器
+rta和rtb互相发一个DD包，其中都把自己当成主路由器
+2、交换LSDB摘要
+rta发一个DD报文，里面有自己的LSDB摘要，序号为对端发来的第一个DD报文的序号（Y）
+rtb也发同样作用的DD报文（Y+1）
+3、交换LSA（可选）
+先发LSR，再发LSU
+4、用LSACK确认收到了LSA</p>
+<p>DR和BDR
+只存在于广播型网络和NBMA网络
+目的：减少邻接关系的数量</p>
+<p>DR&amp;BDR选举
+先看端口的路由器优先级（0~255）
+值越大越优先，优先级值为0则没有选举资格
+再看RouterID
+越大越好
+如果网络中存在DR和BDR的话，新加入的路由器不会 成为DR和BDR</p>
+<p>目的：保持邻接关系的稳定</p>
+<p>OSPF区域</p>
+<p>OSPF支持将一组网段组合在一起，这样的一个组合称为一个区域
+ABR
+ASBR
+一个路由器可以属于多个区域，它为每个区域单独维护一个LSDB</p>
+<p>骨干区域，为了防止路由环路，将area 0 设置为骨干区域，非骨干区域间的路由信息不能直接交互</p>
+<p>OSPF开销
+OSPF协议基于带宽计算开销值，开销=参考带宽/实际带宽
+配置带宽参考值时应该在整个网络中统一进行调整
+参考带宽默认为100M。当计算结果有小数位时，只取整数位；结果小于1时，cost取1。
+ospf cost 20
+bandwidth-reference
+display ospf peer
+用于查看邻居的相关属性</p>
+<p>OSPF认证
+认证方式：
+区域认证和接口认证
+接口认证高于区域认证
+ospf authentication-mode md5 1 huawei
+验证：
+terminal debugging
+debugging ospf packet</p>
+<p>协议号
+89</p>
+<p>版本 类型 报文长度（bytes） router id area id 校验和
+认证方式
+0 不认证
+1 简单明文密码认证
+2  加密认证
+认证信息</p>
+<p>第一个DD报文用于选举MASTER
+选举完成后产生Negotiation-Done事件。</p>
+<p>为了快速排障，最关键的是要理解不同状态之间切换的触发原因。</p>
+<p>状态机：</p>
+<p>PollInternval
+HelloInterval</p>
+<p>Router DeadInterval</p>
+<p>LSA是OSPF链路状态信息的载体</p>
+<p>所有的LSA都有相同的头部：
+LS age：lsa已经生存的时间
+LS type：常用的有五种
+LS id：链路标识，router id
+advertising router
+ls sequence number：用于检测旧的和重复的LSA</p>
+<p>LS type，Link State ID和Advertising Router的组合共同标识一条LSA。
+选举DR、BDR
+减少邻接关系
+降低OSPF协议流量
+指定路由器
+Designated Router
+备份指定路由器
+Backup Designated Router</p>
+<p>防单点故障</p>
+<p>邻接关系建立完成，意味着LSDB已经同步完成</p>
+<p>display ospf lsdb router/network self-originate</p>
+<p>一类：Router LSA
+每台OSPF路由器使用一条Router-LSA描述本区域内的链路状态信息。
+一条Router LSA可以描述多条链接
+Link ID,Data,Link Type,Metric
+链接类型有三种：P2P TransNet StubNet
+Link ID和Data根据type不同而有不同的含义</p>
+<p>二类：Network LSA
+ Type：LSA类型，Network-LSA是二类LSA。
+ LS id：DR的接口IP地址。
+ Adv rtr：产生此Network-LSA的路由器Router ID，即DR的Router ID。
+ Net mask：该网段的网络掩码。
+ Attached Router：连接到该网段的路由器列表，呈现了此网段的拓扑信息。
+从DR路由器到其所连接的路由器的开销为0</p>
+<p>路由信息</p>
+<p>拓扑信息</p>
+<p>SPF算法：
+根据拓扑信息构建SPF树干
+根据SPF树干和路由信息计算最优路由</p>
+<p>OSPF多区域
+基本概念：
+区域边界路由器，接口连接了两个及以上的区域
+区域内部路由器，接口所有接口都在同一个区域中</p>
+<p>LSDB的同步只在同一个区域内进行</p>
+<p>ABR收到三类LSA之后会重新计算生成新的三类LSA
+Network-Summary-LSA
+一条三类LSA只能描述一条路由信息</p>
+<p>骨干区域
+非骨干区域
+非骨干区域之间的通信都要通过骨干区域中转
+ABR至少有一个接口属于骨干区域
+从骨干区域传来的三类LSA不再传回骨干区域</p>
+<p>新建网络按照区域间的防环规则进行部署，可以避免区域间环路问题。但是部分网
+络可能因早期规划问题，区域间的连接关系违背了骨干区域和非骨干区域的规则。</p>
+<p>骨干区域必须是连续的，但是并不要求物理上连续，可以使用虚连接使骨干区域逻辑上连续。
+虚连接可以在任意两个区域边界路由器上建立，但是要求这个ABR都有端口连接到一个相同的非骨干区域</p>
+
+</div>
+
+
+    </main>
+
+    
+  </body>
+</html>

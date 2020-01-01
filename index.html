@@ -51,7 +51,61 @@
 
     <main class="content container">
     <div class="posts">
-
+<article class="post">
+  <h1 class="post-title">
+    <a href="https://xishian.github.io/post/3-third/">3 Third</a>
+  </h1>
+  <time datetime="2020-01-01T21:06:35&#43;0800" class="post-date">Wed, Jan 1, 2020</time>
+  
+  
+</article><article class="post">
+  <h1 class="post-title">
+    <a href="https://xishian.github.io/post/2-second/">2 Second</a>
+  </h1>
+  <time datetime="2020-01-01T21:06:24&#43;0800" class="post-date">Wed, Jan 1, 2020</time>
+  
+  
+</article><article class="post">
+  <h1 class="post-title">
+    <a href="https://xishian.github.io/post/1-first/">1 First</a>
+  </h1>
+  <time datetime="2020-01-01T21:06:10&#43;0800" class="post-date">Wed, Jan 1, 2020</time>
+  OSPF 开放式最短路径优先协议是IETF定义的一种基于链路状态的内部网关路由协议
+特点：
+设计上保证路由无环路
+支持区域的划分
+支持触发更新
+提供认证
+解决网络扩容带来的问题
+网络类型： P2P 支持广播和组播，PPP 广播 支持广播和组播，通过共享介质互连，以太网 NBMA 不支持广播和组播，通过虚电路（VC）互连 需要手动配置邻居 通过全互连的帧中继链路相连的路由器网络 P2MP 支持广播和组播 可以通过Inverse ARP来发现邻居 没有默认的实现，非完全连接的帧中继网络或者ATM
+LSA 链路状态公告，包含了路由器已知的接口IP地址、掩码、开销和网络类型等信息。
+LSDB 链路状态数据库，每台路由器维护一个LSDB，通过spf算法计算得到一棵最短路径树，并从这棵树得到目的网络的最优路由，最后加入路由表
+OSPF报文
+Hello报文 发现，建立，维护邻居关系，在广播和NBMA网络中选举DR和BDR DD报文 描述自己的LSDB，其中包含所有LSA的头部（头部可以唯一标识词LSA，且数据量比较小） LSR报文 交换DD报文后，向对端请求自己没有的LSA LSU 向对端发送其需要的LSA LSACK 对接收到的LSU报文进行确认
+状态 Down 没有收到任何消息 Init	收到了Hello包，但里面没有自己 Attempt	NBMA，没收到任何消息，但已经发了Hello包出去 2-Way	双向通信已经建立 ExStart	开始发DD报文，确定主从关系 Exchange	DD报文里面包含LSDB的摘要了 Loading	交换LSA（涉及到LSR和LSU） Full LSDB同步完成
+RouterId 路由器的唯一标识，建议手动分配，没设就选最大的IP地址（逻辑-&gt;物理） 手动配置-》Loopback最大-》物理接口最大 重置ospf进程可更新router id
+邻居关系 收到Hello包之后，检查其中的参数，验证成功就建立邻居关系 检查的项目： 网络掩码（仅限于 NBMA），发送间隔，失效时间，选项E-bit OSPF支持通过单播的方式建立邻居关系&mdash; peer 2.2.2.2
+邻接关系 成功交换DD报文和LSA之后才算是邻接关系 Hello 发现，建立，保持邻居关系
+  
+  <div class="read-more-link">
+    <a href="/post/1-first/">Read More…</a>
+  </div>
+  
+</article><article class="post">
+  <h1 class="post-title">
+    <a href="https://xishian.github.io/about/">About</a>
+  </h1>
+  <time datetime="2020-01-01T21:02:04&#43;0800" class="post-date">Wed, Jan 1, 2020</time>
+  洛川的笔记
+  
+</article><article class="post">
+  <h1 class="post-title">
+    <a href="https://xishian.github.io/articles/test/">Test</a>
+  </h1>
+  <time datetime="2020-01-01T19:48:50&#43;0800" class="post-date">Wed, Jan 1, 2020</time>
+  
+  
+</article>
 </div>
     </main>
 

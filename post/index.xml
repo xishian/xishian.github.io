@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>朝花夕拾</title>
-    <link>https://xishian.github.io/</link>
-    <description>Recent content on 朝花夕拾</description>
+    <title>Posts on 朝花夕拾</title>
+    <link>https://xishian.github.io/post/</link>
+    <description>Recent content in Posts on 朝花夕拾</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <lastBuildDate>Wed, 01 Jan 2020 21:06:35 +0800</lastBuildDate>
     
-	<atom:link href="https://xishian.github.io/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://xishian.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
@@ -51,24 +51,6 @@ Hello报文 发现，建立，维护邻居关系，在广播和NBMA网络中选�
 RouterId 路由器的唯一标识，建议手动分配，没设就选最大的IP地址（逻辑-&amp;gt;物理） 手动配置-》Loopback最大-》物理接口最大 重置ospf进程可更新router id
 邻居关系 收到Hello包之后，检查其中的参数，验证成功就建立邻居关系 检查的项目： 网络掩码（仅限于 NBMA），发送间隔，失效时间，选项E-bit OSPF支持通过单播的方式建立邻居关系&amp;mdash; peer 2.2.2.2
 邻接关系 成功交换DD报文和LSA之后才算是邻接关系 Hello 发现，建立，保持邻居关系</description>
-    </item>
-    
-    <item>
-      <title>About</title>
-      <link>https://xishian.github.io/about/</link>
-      <pubDate>Wed, 01 Jan 2020 21:02:04 +0800</pubDate>
-      
-      <guid>https://xishian.github.io/about/</guid>
-      <description>洛川的笔记</description>
-    </item>
-    
-    <item>
-      <title>Test</title>
-      <link>https://xishian.github.io/articles/test/</link>
-      <pubDate>Wed, 01 Jan 2020 19:48:50 +0800</pubDate>
-      
-      <guid>https://xishian.github.io/articles/test/</guid>
-      <description></description>
     </item>
     
   </channel>
